@@ -5,6 +5,7 @@
     <string name="responses_fragment_nav">Отклики</string>
     <string name="message_fragment_nav">Сообщения</string>
     <string name="profile_fragment_nav">Профиль</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="et_search_false">Должность, ключевые слова</string>
+    <string name="et_search_true">Должность по подходящим вакансиям</string>
+    <string name="tv_vacancies_for_u">Вакансии для вас</string>
 </resources>

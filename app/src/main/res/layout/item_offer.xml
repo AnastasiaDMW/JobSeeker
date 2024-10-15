@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="132dp"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grey1"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="8dp"
+    app:cardCornerRadius="8dp"
+    android:elevation="8dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/grey1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/near_vacancies"
+            android:background="@drawable/image_corner"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Вакансии рядом с вами"
+            style="@style/TextAppearance.Title4"/>
+
+        <TextView
+            android:id="@+id/tvAction"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/green"
+            android:text="Поднять"
+            style="@style/TextAppearance.Text1"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
