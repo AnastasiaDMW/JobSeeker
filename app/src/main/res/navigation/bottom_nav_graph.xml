@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph"
+    app:startDestination="@id/searchFragment2">
+
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.jobseeker.view.fragments.search_fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_favoriteFragment2"
+            app:destination="@id/favoriteFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment2"
+        android:name="com.example.jobseeker.view.fragments.favorite_fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment2_to_responsesFragment2"
+            app:destination="@id/responsesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/responsesFragment2"
+        android:name="com.example.jobseeker.view.fragments.responses_fragment.ResponsesFragment"
+        android:label="fragment_responses"
+        tools:layout="@layout/fragment_responses" >
+        <action
+            android:id="@+id/action_responsesFragment2_to_messageFragment2"
+            app:destination="@id/messageFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment2"
+        android:name="com.example.jobseeker.view.fragments.message_fragment.MessageFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" >
+        <action
+            android:id="@+id/action_messageFragment2_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.jobseeker.view.fragments.profile_fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
