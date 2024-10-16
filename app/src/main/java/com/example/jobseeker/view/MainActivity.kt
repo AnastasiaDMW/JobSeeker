@@ -1,5 +1,6 @@
 package com.example.jobseeker.view
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        window.statusBarColor = Color.BLACK
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
