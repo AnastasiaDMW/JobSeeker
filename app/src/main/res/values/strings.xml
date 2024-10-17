@@ -8,4 +8,5 @@
     <string name="et_search_false">Должность, ключевые слова</string>
     <string name="et_search_true">Должность по подходящим вакансиям</string>
     <string name="tv_vacancies_for_u">Вакансии для вас</string>
+    <string name="favorite">Избранное</string>
 </resources>

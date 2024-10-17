@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.domain.model.OfferVacancyResponse
-import com.example.domain.model.Vacancy
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
 import com.example.jobseeker.adapter.MainScreenDelegates
 import com.example.jobseeker.databinding.FragmentSearchBinding
 import com.example.jobseeker.model.OfferVacancyItem
-import com.example.jobseeker.model.OfferVacancyState
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import javax.inject.Inject
 

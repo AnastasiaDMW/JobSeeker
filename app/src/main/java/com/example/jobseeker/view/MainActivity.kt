@@ -3,17 +3,12 @@ package com.example.jobseeker.view
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
-import com.example.jobseeker.adapter.MainScreenDelegates
 import com.example.jobseeker.databinding.ActivityMainBinding
 import com.example.jobseeker.view.fragments.search_fragment.SearchViewModel
 import javax.inject.Inject
@@ -25,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private var controller: NavController? = null
-//    private var countFavorite = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                     if (it.error.isNotBlank()) {
                         Log.d("ERROR", it.error)
                     } else {
-//                        val countFavorite = searchViewModel.countFavorite
                         Log.d("NAVIGATION_MAIN", searchViewModel.countFavorite.toString())
                         if (searchViewModel.countFavorite != 0) {
                             badge.isVisible = true
@@ -57,9 +50,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-//            MainScreenDelegates.setOnFavoriteClickListener { vacancy ->
-//                searchViewModel.updateFavorite(vacancy)
-//            }
             bottomNavigation.itemTextColor = ContextCompat.getColorStateList(this@MainActivity, R.color.bottom_nav_color)
             bottomNavigation.setOnItemSelectedListener { item ->
                 when(item.itemId) {
