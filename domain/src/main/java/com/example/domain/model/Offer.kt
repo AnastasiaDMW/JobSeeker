@@ -5,4 +5,4 @@ data class Offer(
     val title: String,
     val link: String,
     val button: Button? = null
-)
+): ListItem

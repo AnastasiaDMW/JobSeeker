@@ -22,7 +22,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:src="@drawable/near_vacancies"
-            android:background="@drawable/image_corner"/>
+            android:background="@drawable/rounded_background_blue"/>
 
         <TextView
             android:id="@+id/tvTitle"

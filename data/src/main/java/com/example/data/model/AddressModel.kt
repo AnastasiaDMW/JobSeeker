@@ -1,7 +1,7 @@
-package com.example.domain.model
+package com.example.data.model
 
-data class Address(
+data class AddressModel(
     val town: String,
     val street: String,
     val house: String
-):ListItem
+)

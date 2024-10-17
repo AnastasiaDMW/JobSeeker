@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:padding="16dp"
+    android:verticalScrollbarPosition="defaultPosition"
     tools:context=".view.fragments.search_fragment.SearchFragment">
 
     <LinearLayout
@@ -56,11 +57,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOffers"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:itemCount="3"
-        tools:listitem="@layout/item_offer"
+        tools:listitem="@layout/item_offer_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -79,13 +80,18 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVacancies"
-        tools:itemCount="1"
-        tools:listitem="@layout/item_vacancy"
+        tools:itemCount="3"
+        app:spanCount="3"
+        tools:listitem="@layout/item_vacancy_vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvVacanciesForU" />
+        app:layout_constraintTop_toBottomOf="@+id/tvVacanciesForU"
+        app:layout_constraintBottom_toTopOf="@id/btnMoreVacancy"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnMoreVacancy"
@@ -99,6 +105,6 @@
         style="@style/TextAppearance.ButtonText1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvVacancies" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
