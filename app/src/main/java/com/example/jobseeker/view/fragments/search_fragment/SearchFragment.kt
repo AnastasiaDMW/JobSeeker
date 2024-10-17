@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
@@ -11,6 +13,7 @@ import com.example.jobseeker.adapter.MainScreenDelegates
 import com.example.jobseeker.databinding.FragmentSearchBinding
 import com.example.jobseeker.model.OfferVacancyItem
 import com.example.jobseeker.view.MainViewModel
+import com.example.jobseeker.view.utils.FormatTextData
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import javax.inject.Inject
 
@@ -34,11 +37,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         mainViewModel.state.observe(requireActivity()) {
             if (!it.isLoading) {
                 if (it.error.isNotBlank()) {
-                    Log.d("ERROR", it.error)
                 } else {
-                    Log.d("DATA", it.offerVacancy.toString())
                     updateAdapters()
-                    Log.d("NAVIGATION", it.countFavorite.toString())
+                    binding?.tvCountVacancy?.text = FormatTextData().getDeclineVacancy(mainViewModel.state.value?.offerVacancy?.vacancies?.count() ?: 0)
                 }
             }
         }
@@ -46,6 +47,42 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             mainViewModel.updateFavorite(vacancy)
         }
         initAdapters()
+        initSearchListeners()
+    }
+
+    private fun initSearchListeners() {
+        binding?.run {
+            icSearch.setOnClickListener {
+                if (lSort.visibility != View.VISIBLE) switchToBackArrow() else switchToSearchIcon()
+            }
+
+            etSearch.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    icSearch.setImageResource(R.drawable.back_arrow)
+                    lSort.visibility = View.VISIBLE
+                    etSearch.setHint(R.string.et_search_true)
+                } else {
+                    switchToSearchIcon()
+                }
+            }
+        }
+    }
+
+    private fun switchToBackArrow() {
+        binding?.run {
+            icSearch.setImageResource(R.drawable.back_arrow)
+            lSort.visibility = View.VISIBLE
+            etSearch.requestFocus()
+        }
+    }
+
+    private fun switchToSearchIcon() {
+        binding?.run {
+            etSearch.clearFocus()
+            etSearch.setHint(R.string.et_search_false)
+            icSearch.setImageResource(R.drawable.search)
+            lSort.visibility = View.GONE
+        }
     }
 
     private fun initAdapters() {
