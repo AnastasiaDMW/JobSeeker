@@ -10,13 +10,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
 import com.example.jobseeker.databinding.ActivityMainBinding
-import com.example.jobseeker.view.fragments.search_fragment.SearchViewModel
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var searchViewModel: SearchViewModel
+    lateinit var mainViewModel: MainViewModel
 
     private var binding: ActivityMainBinding? = null
     private var controller: NavController? = null
@@ -35,15 +34,15 @@ class MainActivity : AppCompatActivity() {
 
             val badge = bottomNavigation.getOrCreateBadge(R.id.favoriteFragment)
 
-            searchViewModel.state.observe(this@MainActivity) {
+            mainViewModel.state.observe(this@MainActivity) {
                 if (!it.isLoading) {
                     if (it.error.isNotBlank()) {
                         Log.d("ERROR", it.error)
                     } else {
-                        Log.d("NAVIGATION_MAIN", searchViewModel.countFavorite.toString())
-                        if (searchViewModel.countFavorite != 0) {
+                        Log.d("NAVIGATION_MAIN", mainViewModel.countFavorite.toString())
+                        if (mainViewModel.countFavorite != 0) {
                             badge.isVisible = true
-                            badge.number = searchViewModel.countFavorite
+                            badge.number = mainViewModel.countFavorite
                         } else {
                             badge.isVisible = false
                         }

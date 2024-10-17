@@ -1,4 +1,4 @@
-package com.example.jobseeker.view.fragments.search_fragment
+package com.example.jobseeker.view
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,7 +15,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SearchViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val getOfferVacancyUseCase: GetDataFromFileUseCase
 ): ViewModel() {
 
