@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.domain.model.OfferVacancyResponse
+import com.example.domain.model.Vacancy
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
 import com.example.jobseeker.adapter.MainScreenDelegates
 import com.example.jobseeker.databinding.FragmentSearchBinding
 import com.example.jobseeker.model.OfferVacancyItem
+import com.example.jobseeker.model.OfferVacancyState
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import javax.inject.Inject
 
@@ -19,13 +22,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     @Inject
     lateinit var searchViewModel: SearchViewModel
 
-    private val horizontalAdapter = ListDelegationAdapter(
-        MainScreenDelegates.offersVacancyHorizontalDelegates
-    )
-
-    private val verticalAdapter = ListDelegationAdapter(
-        MainScreenDelegates.offersVacancyVerticalDelegates
-    )
+    private val horizontalAdapter by lazy {
+        ListDelegationAdapter(MainScreenDelegates.offersVacancyHorizontalDelegates)
+    }
+    private val verticalAdapter by lazy {
+        ListDelegationAdapter(MainScreenDelegates.offersVacancyVerticalDelegates)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,18 +36,29 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchViewModel.state.observe(requireActivity()) {
             if (!it.isLoading) {
                 if (it.error.isNotBlank()) {
-
+                    Log.d("ERROR", it.error)
                 } else {
                     Log.d("DATA", it.offerVacancy.toString())
-                    initAdapters()
+                    updateAdapters()
+                    Log.d("NAVIGATION", it.countFavorite.toString())
                 }
             }
         }
+        MainScreenDelegates.setOnFavoriteClickListener { vacancy ->
+            searchViewModel.updateFavorite(vacancy)
+        }
+        initAdapters()
     }
 
     private fun initAdapters() {
         binding?.run {
             rvOffers.adapter = horizontalAdapter
+            rvVacancies.adapter = verticalAdapter
+        }
+    }
+
+    private fun updateAdapters() {
+        binding?.run {
             horizontalAdapter.apply {
                 items = listOf(
                     OfferVacancyItem(
@@ -54,7 +67,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 )
                 notifyDataSetChanged()
             }
-            rvVacancies.adapter = verticalAdapter
             verticalAdapter.apply {
                 items = listOf(
                     OfferVacancyItem(
@@ -75,5 +87,4 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onAttach(context)
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
-
 }

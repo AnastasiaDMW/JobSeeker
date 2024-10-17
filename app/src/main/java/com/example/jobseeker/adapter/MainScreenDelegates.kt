@@ -11,8 +11,10 @@ import com.example.jobseeker.databinding.ItemVacancyBinding
 import com.example.jobseeker.databinding.ItemVacancyVerticalBinding
 import com.example.jobseeker.model.OfferVacancyItem
 import com.example.jobseeker.view.fragments.search_fragment.FormatTextData
+import com.example.jobseeker.view.fragments.search_fragment.SearchViewModel
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import javax.inject.Inject
 
 object MainScreenDelegates {
 
@@ -92,6 +94,13 @@ object MainScreenDelegates {
             binding.ivIsFavorite.setImageDrawable(
                 if (item.isFavorite) getDrawable(R.drawable.favorite_blue) else getDrawable(R.drawable.favorite_gray)
             )
+            binding.ivIsFavorite.setOnClickListener {
+                onFavoriteClick(item)
+                item.isFavorite = !item.isFavorite
+                binding.ivIsFavorite.setImageDrawable(
+                    if (item.isFavorite) getDrawable(R.drawable.favorite_blue) else getDrawable(R.drawable.favorite_gray)
+                )
+            }
             binding.tvDatePublic.text = FormatTextData().getFormatDate(item.publishedDate)
             binding.tvJobExperience.text = item.experience.previewText
             binding.tvSalary.text = item.salary.short
@@ -99,5 +108,11 @@ object MainScreenDelegates {
             binding.tvTitleTown.text = item.address.town
             binding.tvCompany.text = item.company
         }
+    }
+
+    private var onFavoriteClick: (Vacancy) -> Unit = {}
+
+    fun setOnFavoriteClickListener(listener: (Vacancy) -> Unit) {
+        onFavoriteClick = listener
     }
 }
