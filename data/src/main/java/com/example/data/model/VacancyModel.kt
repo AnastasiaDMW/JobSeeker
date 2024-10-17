@@ -1,18 +1,18 @@
-package com.example.domain.model
+package com.example.data.model
 
-data class Vacancy(
+data class VacancyModel(
     val id: String,
     val lookingNumber: Int? = null,
     val title: String,
-    val address: Address,
+    val addressModel: AddressModel,
     val company: String,
-    val experience: Experience,
+    val experienceModel: ExperienceModel,
     val publishedDate: String,
     val isFavorite: Boolean,
-    val salary: Salary,
+    val salaryModel: SalaryModel,
     val schedules: List<String>,
     val appliedNumber: Int? = null,
     val description: String? = null,
     val responsibilities: String,
     val questions: List<String>
-): ListItem
+)
