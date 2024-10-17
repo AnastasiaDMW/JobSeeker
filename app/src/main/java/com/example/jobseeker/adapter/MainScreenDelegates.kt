@@ -10,11 +10,9 @@ import com.example.jobseeker.databinding.ItemOfferHorizontalBinding
 import com.example.jobseeker.databinding.ItemVacancyBinding
 import com.example.jobseeker.databinding.ItemVacancyVerticalBinding
 import com.example.jobseeker.model.OfferVacancyItem
-import com.example.jobseeker.view.fragments.search_fragment.FormatTextData
-import com.example.jobseeker.view.fragments.search_fragment.SearchViewModel
+import com.example.jobseeker.view.utils.FormatTextData
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import javax.inject.Inject
 
 object MainScreenDelegates {
 

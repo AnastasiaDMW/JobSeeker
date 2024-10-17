@@ -10,6 +10,7 @@ import com.example.jobseeker.R
 import com.example.jobseeker.adapter.MainScreenDelegates
 import com.example.jobseeker.databinding.FragmentSearchBinding
 import com.example.jobseeker.model.OfferVacancyItem
+import com.example.jobseeker.view.MainViewModel
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var binding: FragmentSearchBinding? = null
     @Inject
-    lateinit var searchViewModel: SearchViewModel
+    lateinit var mainViewModel: MainViewModel
 
     private val horizontalAdapter by lazy {
         ListDelegationAdapter(MainScreenDelegates.offersVacancyHorizontalDelegates)
@@ -30,7 +31,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSearchBinding.bind(view)
 
-        searchViewModel.state.observe(requireActivity()) {
+        mainViewModel.state.observe(requireActivity()) {
             if (!it.isLoading) {
                 if (it.error.isNotBlank()) {
                     Log.d("ERROR", it.error)
@@ -42,7 +43,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
         }
         MainScreenDelegates.setOnFavoriteClickListener { vacancy ->
-            searchViewModel.updateFavorite(vacancy)
+            mainViewModel.updateFavorite(vacancy)
         }
         initAdapters()
     }
@@ -59,7 +60,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             horizontalAdapter.apply {
                 items = listOf(
                     OfferVacancyItem(
-                        offersVacancies = searchViewModel.state.value?.offerVacancy?.offers ?: emptyList()
+                        offersVacancies = mainViewModel.state.value?.offerVacancy?.offers ?: emptyList()
                     )
                 )
                 notifyDataSetChanged()
@@ -67,7 +68,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             verticalAdapter.apply {
                 items = listOf(
                     OfferVacancyItem(
-                        offersVacancies = searchViewModel.state.value?.offerVacancy?.vacancies ?: emptyList()
+                        offersVacancies = mainViewModel.state.value?.offerVacancy?.vacancies ?: emptyList()
                     )
                 )
                 notifyDataSetChanged()

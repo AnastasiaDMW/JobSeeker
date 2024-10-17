@@ -1,4 +1,4 @@
-package com.example.jobseeker.view.fragments.search_fragment
+package com.example.jobseeker.view.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -13,6 +13,15 @@ class FormatTextData {
             countStr.endsWith("2") || countStr.endsWith("3") || countStr.endsWith("4") -> "человека"
             else -> "человек"
         }
+    }
+
+    fun getDeclineVacancy(count: Int): String {
+        val form = when {
+            count % 10 == 1 && count % 100 != 11 -> "вакансия"
+            count % 10 in 2..4 && (count % 100 < 12 || count % 100 > 14) -> "вакансии"
+            else -> "вакансий"
+        }
+        return "$count $form"
     }
 
     fun getFormatDate(dateString: String): String {
