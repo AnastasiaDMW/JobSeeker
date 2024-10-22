@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.jobseeker.MyApplication
 import com.example.jobseeker.R
@@ -39,7 +40,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 if (it.error.isNotBlank()) {
                 } else {
                     updateAdapters()
-                    binding?.tvCountVacancy?.text = FormatTextData().getDeclineVacancy(mainViewModel.state.value?.offerVacancy?.vacancies?.count() ?: 0)
+                    val countVacancy = mainViewModel.state.value?.offerVacancy?.vacancies?.count()
+                    binding?.tvCountVacancy?.text = FormatTextData().getDeclineVacancy(countVacancy ?: 0)
+                    if (countVacancy != null) {
+                        if (countVacancy > 3) {
+                            binding?.btnMoreVacancy?.text = "Еще "+FormatTextData().getDeclineVacancy(countVacancy-3)
+                        } else {
+                            binding?.btnMoreVacancy?.visibility = View.GONE
+                        }
+                    }
                 }
             }
         }
@@ -94,6 +103,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun updateAdapters() {
         binding?.run {
+            btnMoreVacancy.setOnClickListener {
+                mainViewModel.isLimit = false
+                updateAdapters()
+            }
             horizontalAdapter.apply {
                 items = listOf(
                     OfferVacancyItem(
@@ -103,9 +116,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 notifyDataSetChanged()
             }
             verticalAdapter.apply {
+                val vacanciesToDisplay = if (mainViewModel.isLimit) {
+                    btnMoreVacancy.visibility = View.VISIBLE
+                    mainViewModel.limitState
+                } else {
+                    btnMoreVacancy.visibility = View.GONE
+                    mainViewModel.state.value?.offerVacancy?.vacancies ?: emptyList()
+                }
+
                 items = listOf(
                     OfferVacancyItem(
-                        offersVacancies = mainViewModel.state.value?.offerVacancy?.vacancies ?: emptyList()
+                        offersVacancies = vacanciesToDisplay
                     )
                 )
                 notifyDataSetChanged()

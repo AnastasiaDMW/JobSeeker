@@ -1,5 +1,6 @@
 package com.example.jobseeker.view
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,11 @@ class MainViewModel @Inject constructor(
     private val _state = MutableLiveData<OfferVacancyState>()
     val state: LiveData<OfferVacancyState> = _state
 
+    private val _limitState = mutableListOf<Vacancy>()
+    val limitState: List<Vacancy> = _limitState
+
+    var isLimit: Boolean = true
+
     private var _countFavorite: Int = 0
     val countFavorite: Int
         get() = _countFavorite
@@ -40,6 +46,7 @@ class MainViewModel @Inject constructor(
                         offerVacancy = result.data ?: OfferVacancyResponse(emptyList(), emptyList()),
                         countFavorite = _countFavorite
                     )
+                    _limitState.addAll(result.data?.vacancies?.take(3) ?: emptyList())
                 }
                 is Resource.Error -> {
                     _state.value = OfferVacancyState(error = result.message ?: "An unexpected error occurred")
@@ -63,9 +70,14 @@ class MainViewModel @Inject constructor(
                 countFavorite = _countFavorite
             )
         }
+        limitState.let { response ->
+            val updatedVacancies = response.map { if (it == vacancy) it.copy(isFavorite = !it.isFavorite) else it }
+            _limitState.clear()
+            _limitState.addAll(updatedVacancies)
+        }
     }
 
-    fun getFavoriteCount(vacancies: List<Vacancy>): Int {
+    private fun getFavoriteCount(vacancies: List<Vacancy>): Int {
         return vacancies.count { it.isFavorite }
     }
 }
