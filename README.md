@@ -9,6 +9,6 @@
 * XML
 * Clear Architecture
 * Retrofit
-* Многомодульность
+* Multi-Modules
 * Lifecycle
 * Navigation
