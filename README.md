@@ -10,3 +10,5 @@
 * Clear Architecture
 * Retrofit
 * Многомодульность
+* Lifecycle
+* Navigation
